@@ -31,49 +31,36 @@ class _AcceuilState extends State<Acceuil> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
-    
+
     return Scaffold(
-      body: SingleChildScrollView(
-          child: Container(       
-        margin: EdgeInsets.only(left: width * .01, right: width * .01),
-        child: Stack(
-          children: [
-            Container(
-              color: Colors.yellow,
-              child: Center(),
-            ),
-            SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(top: width * .07),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        WidgetForAll.radiusButtons(
-                            icon: const Icon(Icons.drag_handle),
-                            ontapAction: () {}),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            WidgetForAll.radiusButtons(
-                                icon: const Icon(Icons.search),
+      appBar: AppBar(
+        backgroundColor: AppColors.bg,
+        leading: WidgetForAll.radiusButtons(
+            icon: const Icon(Icons.drag_handle), ontapAction: () {},color: Colors.black87,),
+            actions: [
+               WidgetForAll.radiusButtons(
+                                icon: const Icon(Icons.search),color: Colors.black87,
                                 ontapAction: () {}),
                             const SizedBox(
                               width: 10.0,
                             ),
                             WidgetForAll.radiusButtons(
-                                icon: const Icon(Icons.card_travel),
+                                icon: const Icon(Icons.card_travel),color: Colors.black87,
                                 ontapAction: () {})
-                          ],
-                        )
-                      ],
-                    ),
-                  ),
+            ],
+      ),
+      body: SingleChildScrollView(
+          child: Container(
+        margin: EdgeInsets.only(left: width * .01, right: width * .01),
+        child: Stack(
+          children: [
+            SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
                   const SizedBox(
-                    height: 20.0,
+                    height: 30.0,
                   ),
                   TextStyler(
                     "Find your Style",
@@ -121,10 +108,14 @@ class _AcceuilState extends State<Acceuil> with SingleTickerProviderStateMixin {
                             fontWeight: FontWeight.bold,
                           )),
                     ],
-                  ), 
-                  const SizedBox(height: 5.0,), 
+                  ),
+                  const SizedBox(
+                    height: 5.0,
+                  ),
                   _bottomListView(context, width),
-                  const SizedBox(height: 15.0,)
+                  const SizedBox(
+                    height: 15.0,
+                  )
                 ],
               ),
             )
@@ -136,52 +127,51 @@ class _AcceuilState extends State<Acceuil> with SingleTickerProviderStateMixin {
 
   SizedBox _bottomListView(BuildContext context, double width) {
     return SizedBox(
-                  width: MediaQuery.of(context).size.width * .9,
-                  height: 200,
-                  child: ListView.builder(
-                    reverse: true,
-                          scrollDirection: Axis.horizontal,
-                          shrinkWrap: true,
-                          padding: const EdgeInsets.only(right: 15.0),
-                          physics: const BouncingScrollPhysics(),
-                          itemCount: Fashion.ListFashion.length,
-                          itemBuilder: (context, index) {
-                            return Container(
-                              margin: const EdgeInsets.only(right: 15.0),
-                              child: Column(
-                                children: [
-                                  Stack(children: [
-                                    Container(
-                                      width: width * .4,
-                                      height: 200,
-                                      decoration: BoxDecoration(
-                                          borderRadius: const BorderRadius.all(
-                                              Radius.circular(20.0)),
-                                          color: index % 2 != 0
-                                              ? AppColors.listCol2
-                                              : AppColors.listCol1),
-                                      child: Image(
-                                          image: AssetImage(Fashion
-                                              .ListFashion[index].imageUrl)),
-                                    ),
-                                    Positioned(
-                                        right: 2.0,
-                                        top: 2.0,
-                                        child: IconButton(
-                                          onPressed: () {},
-                                          icon: const Icon(
-                                            Icons.favorite_border,
-                                            size: 15.0,
-                                            color: Colors.black54,
-                                          ),
-                                        ))
-                                  ]),
-                                  
-                                ],
-                              ),
-                            );
-                          }),
-                );
+      width: MediaQuery.of(context).size.width * .9,
+      height: 200,
+      child: ListView.builder(
+          reverse: true,
+          scrollDirection: Axis.horizontal,
+          shrinkWrap: true,
+          padding: const EdgeInsets.only(right: 15.0),
+          physics: const BouncingScrollPhysics(),
+          itemCount: Fashion.ListFashion.length,
+          itemBuilder: (context, index) {
+            return Container(
+              margin: const EdgeInsets.only(right: 15.0),
+              child: Column(
+                children: [
+                  Stack(children: [
+                    Container(
+                      width: width * .4,
+                      height: 200,
+                      decoration: BoxDecoration(
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(20.0)),
+                          color: index % 2 != 0
+                              ? AppColors.listCol2
+                              : AppColors.listCol1),
+                      child: Image(
+                          image:
+                              AssetImage(Fashion.ListFashion[index].imageUrl)),
+                    ),
+                    Positioned(
+                        right: 2.0,
+                        top: 2.0,
+                        child: IconButton(
+                          onPressed: () {},
+                          icon: const Icon(
+                            Icons.favorite_border,
+                            size: 15.0,
+                            color: Colors.black54,
+                          ),
+                        ))
+                  ]),
+                ],
+              ),
+            );
+          }),
+    );
   }
 
   Widget _women(double width) {
@@ -193,8 +183,12 @@ class _AcceuilState extends State<Acceuil> with SingleTickerProviderStateMixin {
         itemCount: Fashion.ListFashion.length,
         itemBuilder: (context, index) {
           return InkWell(
-            onTap: (){
-              Navigator.push(context,MaterialPageRoute(builder: (context)=>Detail(fashion: Fashion.ListFashion[index])));
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          Detail(fashion: Fashion.ListFashion[index])));
             },
             child: Container(
               margin: const EdgeInsets.only(right: 15.0),
@@ -213,7 +207,10 @@ class _AcceuilState extends State<Acceuil> with SingleTickerProviderStateMixin {
                       child: Hero(
                         tag: Fashion.ListFashion[index].imageUrl,
                         child: Image(
-                            image: AssetImage(Fashion.ListFashion[index].imageUrl),fit: BoxFit.cover,),
+                          image:
+                              AssetImage(Fashion.ListFashion[index].imageUrl),
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
                     Positioned(
@@ -247,7 +244,8 @@ class _AcceuilState extends State<Acceuil> with SingleTickerProviderStateMixin {
                                   fontWeight: FontWeight.bold),
                               children: [
                             TextSpan(
-                                text: Fashion.ListFashion[index].price.toString(),
+                                text:
+                                    Fashion.ListFashion[index].price.toString(),
                                 style: const TextStyle(
                                   fontSize: 25.0,
                                   fontWeight: FontWeight.bold,
@@ -262,3 +260,30 @@ class _AcceuilState extends State<Acceuil> with SingleTickerProviderStateMixin {
         });
   }
 }
+
+/*
+Padding(
+                    padding: EdgeInsets.only(top: width * .07),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        WidgetForAll.radiusButtons(
+                            icon: const Icon(Icons.drag_handle),
+                            ontapAction: () {}),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            WidgetForAll.radiusButtons(
+                                icon: const Icon(Icons.search),
+                                ontapAction: () {}),
+                            const SizedBox(
+                              width: 10.0,
+                            ),
+                            WidgetForAll.radiusButtons(
+                                icon: const Icon(Icons.card_travel),
+                                ontapAction: () {})
+                          ],
+                        )
+                      ],
+                    ),
+                  ),*/
